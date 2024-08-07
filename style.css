@@ -180,18 +180,18 @@ footer {
 }
 
 /* Media Queries */
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 580px) {
     .pokedex-header input {
-        width: 100%;
+        width: 70%;
     }
 
     .pokemon-box {
-        width: 45%;
+        width: 40%;
     }
 }
 
-@media screen and (max-width: 480px) {
+@media screen and (max-width: 300px) {
     .pokemon-box {
-        width: 100%;
+        width: 50%;
     }
 }
