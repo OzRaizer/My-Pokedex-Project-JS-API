@@ -180,18 +180,74 @@ footer {
 }
 
 /* Media Queries */
-@media screen and (max-width: 580px) {
+@media screen and (max-width: 768px) {
     .pokedex-header input {
-        width: 70%;
+        width: 100%;
     }
 
     .pokemon-box {
-        width: 40%;
+        width: 45%;
+    }
+
+    .modal-content {
+        width: 90%;
+        margin: 20% auto;
+    }
+
+    .evolution-box {
+        width: 80px;
+    }
+
+    .evolution-box img {
+        width: 60px;
+        height: 60px;
     }
 }
 
-@media screen and (max-width: 300px) {
+@media screen and (max-width: 480px) {
+    .container {
+        width: 90%;
+        padding: 10px;
+    }
+
+    .pokedex-header h1 {
+        font-size: 1.5rem;
+    }
+
     .pokemon-box {
-        width: 50%;
+        width: 100%;
+        margin: 5px;
+    }
+
+    .pokemon-box img {
+        width: 60px;
+        height: 60px;
+    }
+
+    .pokemon-box p {
+        font-size: 0.9rem;
+    }
+
+    .modal-content {
+        width: 90%;
+        margin: 25% auto;
+    }
+
+    .evolution-box {
+        width: 70px;
+    }
+
+    .evolution-box img {
+        width: 50px;
+        height: 50px;
+    }
+
+    .evolution-box p {
+        font-size: 0.8rem;
+    }
+
+    footer {
+        font-size: 0.9rem;
     }
 }
+
