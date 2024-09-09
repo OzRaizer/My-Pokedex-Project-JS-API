@@ -6,15 +6,23 @@
     <title>Pokédex</title>
     <link rel="stylesheet" href="style.css">
     <link rel="icon" href="img/pokebola.png" type="image/png">
-    
-    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
+
 <body>
     <div class="container">
         <div class="pokedex-header">
-            <h1><i class="fa-duotone fa-solid fa-dragon"></i> Pokédex</h1>
-            <input id="quantidade" type="text" name="quantidade" placeholder="Insira a quantidade de Pokémons...">
+            <h1>Pokédex</h1>
+        </div>
+        <div class="search-container">
+            <div class="search-box">
+                <label for="quantidade">Buscar por Quantidade:</label>
+                <input id="quantidade" type="number" name="quantidade" placeholder="Insira a quantidade...">
+            </div>
+            <div class="search-box">
+                <label for="nomePokemon">Buscar por Nome:</label>
+                <input id="nomePokemon" type="text" name="nomePokemon" placeholder="Insira o nome do Pokémon...">
+            </div>
         </div>
         <div class="pokemon-boxes"></div>
     </div>
@@ -36,6 +44,9 @@
                 <a href="https://github.com/OzRaizer" target="_blank" class="social-icon"><i class="fab fa-github"></i></a>
                 <a href="https://www.linkedin.com/in/oziel-raizer-28a902255/" target="_blank" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
             </div>
+        </div>
+        <img src="img/pokemon.png" alt="Pokémon Logo" class="footer-logo">
+    </footer>
 
     <script src="index.js"></script>
 </body>

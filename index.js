@@ -8,19 +8,54 @@ document.addEventListener('DOMContentLoaded', () => {
             mostrarErro('Por favor, insira um número válido.');
         }
     });
-    pegaPokemons(9);
 
-    // Modal 
+    pegaPokemons(9); // Carregar 9 Pokémons por padrão
+
     const modal = document.getElementById("evolution-modal");
     const span = document.getElementsByClassName("close")[0];
-    
+
     span.onclick = () => modal.style.display = "none";
-    
+
     window.onclick = event => {
         if (event.target == modal) {
             modal.style.display = "none";
         }
     }
+
+    // Busca por nome do Pokémon
+    document.getElementById('nomePokemon').addEventListener('keyup', async (event) => {
+        const nome = event.target.value.toLowerCase().trim();
+        if (nome !== "") {
+            try {
+                const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${nome}`);
+                if (!response.ok) {
+                    mostrarErro('Pokémon não encontrado.');
+                    return;
+                }
+                const pokemon = await response.json();
+                const pokemonBoxes = document.querySelector('.pokemon-boxes');
+                pokemonBoxes.innerHTML = "";
+                
+                const pokemonBox = document.createElement('div');
+                pokemonBox.classList.add('pokemon-box');
+                
+                const typeIcons = pokemon.types.map(typeInfo => getTypeIcon(typeInfo.type.name)).join(' ');
+
+                pokemonBox.innerHTML = `
+                    <img src="${pokemon.sprites.front_default}" alt="${pokemon.name}">
+                    <p>${pokemon.name}</p>
+                    <p>${typeIcons}</p>
+                `;
+                pokemonBox.addEventListener('click', () => showEvolutions(pokemon.species.url));
+                pokemonBoxes.appendChild(pokemonBox);
+            } catch (error) {
+                mostrarErro('Erro ao buscar o Pokémon.');
+                console.error('Erro ao buscar o Pokémon:', error);
+            }
+        } else {
+            pegaPokemons(9);  // Voltar para a lista padrão se o campo de busca estiver vazio
+        }
+    });
 });
 
 async function pegaPokemons(quantidade) {
@@ -35,9 +70,13 @@ async function pegaPokemons(quantidade) {
         pokemons.forEach(pokemonSingle => {
             const pokemonBox = document.createElement('div');
             pokemonBox.classList.add('pokemon-box');
+
+            const typeIcons = pokemonSingle.types.map(typeInfo => getTypeIcon(typeInfo.type.name)).join(' ');
+
             pokemonBox.innerHTML = `
                 <img src="${pokemonSingle.sprites.front_default}" alt="${pokemonSingle.name}">
                 <p>${pokemonSingle.name}</p>
+                <p>${typeIcons}</p>
             `;
             pokemonBox.addEventListener('click', () => showEvolutions(pokemonSingle.species.url));
             pokemonBoxes.appendChild(pokemonBox);
@@ -46,6 +85,29 @@ async function pegaPokemons(quantidade) {
         mostrarErro('Erro ao buscar os Pokémons.');
         console.error('Erro ao buscar os Pokémons:', error);
     }
+}
+
+function getTypeIcon(type) {
+    const icons = {
+        fire: '🔥',
+        water: '💧',
+        grass: '🍃',
+        electric: '⚡',
+        ice: '❄️',
+        fighting: '🥋',
+        poison: '⚗️',
+        ground: '🌍',
+        flying: '🕊️',
+        psychic: '🔮',
+        bug: '🐛',
+        rock: '🪨',
+        ghost: '👻',
+        dragon: '🐉',
+        dark: '🌑',
+        steel: '⚙️',
+        fairy: '✨'
+    };
+    return icons[type] || '❓';
 }
 
 async function showEvolutions(speciesUrl) {
@@ -83,4 +145,12 @@ async function showEvolutions(speciesUrl) {
 function mostrarErro(mensagem) {
     const pokemonBoxes = document.querySelector('.pokemon-boxes');
     pokemonBoxes.innerHTML = `<p class="erro">${mensagem}</p>`;
+}
+
+function showTab(tabId) {
+    document.querySelectorAll('.tab-content').forEach(tab => tab.style.display = 'none');
+    document.getElementById(tabId).style.display = 'block';
+
+    document.querySelectorAll('.tab-button').forEach(button => button.classList.remove('active'));
+    document.querySelector(`[onclick="showTab('${tabId}')"]`).classList.add('active');
 }
